@@ -1,8 +1,0 @@
-{
-  "name": "Attend us",
-  "description": "Attend us, an app for tracking volunteer hours",
-  "repository": "https://github.com/cmonto16/project3",
-  "logo": "https://attend-us.herokuapp.com/node.svg",
-  "keywords": ["node", "express", "heroku"],
-  "image": "heroku/nodejs"
-}
