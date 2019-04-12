@@ -1,0 +1,9 @@
+nav {
+    background-color: #222;
+}
+nav li a:hover {
+    color: rgb(241, 221, 34);
+}
+.brand-logo {
+    margin-left: 10px;
+}
