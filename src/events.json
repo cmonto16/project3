@@ -1,0 +1,56 @@
+[
+    {
+        "name": "Primary Children's Hospital Fundraiser",
+        "photo_link": "http://i.imgur.com/MyPSVxX.jpg",
+        "address": "123 Hospital Lane",
+        "city": "Sandy",
+        "state": "UT",
+        "objective": "To raise awareness about Super Cancer.",
+        "reporting_member": "Jaegermesiter",
+        "mission_report": "Lots of donations received!",
+        "members": [
+            {
+                "nickname": "Thunderstruck",
+                "member_number": 2481,
+                "hours": 4
+            },
+            {
+                "nickname": "Jaegermesiter",
+                "member_number": 8473,
+                "hours": 7
+            },
+            {
+                "nickname": "Overwatch",
+                "member_number": 3765,
+                "hours": 6
+            },
+            {
+                "nickname": "Eagle Eye",
+                "member_number": 4873,
+                "hours": 5
+            }
+        ]
+    },
+    {
+        "name": "Make a Wish Fundraiser",
+        "photo_link": "https://farm2.staticflickr.com/1757/42548021811_e8960c3a87_k.jpg",
+        "address": "456 Charity Blvd",
+        "city": "Salt Lake City",
+        "state": "UT",
+        "objective": "To collect money for the kids.",
+        "reporting_member": "Overwatch",
+        "mission_report": "Everyone had a good time!",
+        "members": [
+            {
+                "nickname": "Overwatch",
+                "member_number": 3765,
+                "hours": 10
+            },
+            {
+                "nickname": "Eagle Eye",
+                "member_number": 4873,
+                "hours": 12
+            }
+        ]
+    }
+]
