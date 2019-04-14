@@ -2,6 +2,9 @@ body {
   background-color: #555;
   color: #fff;
 }
+h1 {
+  text-align: center;
+}
 .btn {
   margin-right: 20px;
 }
