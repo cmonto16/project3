@@ -1,24 +1,40 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import Nav from "./components/Nav";
 import Home from "./pages/Home";
 import Roster from "./pages/Roster";
 import Member from "./pages/Member";
 import Event from "./pages/Event";
 import History from "./pages/History";
+import Callback from "./pages/Callback";
+import Auth from "./Auth/Auth";
+import history from './history';
 import "./App.css";
+
+const auth = new Auth();
+
+const handleAuthentication = ({ location }) => {
+  if (/access_token|id_token|error/.test(location.hash)) {
+    auth.handleAuthentication();
+  }
+};
 
 function App() {
   return (
-    <Router>
+    <Router history={history}>
       <div>
-        <Nav />
+        <Route path="*" render={(props) => <Nav auth={auth}/>}/>
         <Switch>
-          <Route exact path="/" component={Home}/>
+          <Route exact path="/" render={() => <Home auth={auth} />}/>
           <Route exact path="/roster" component={Roster} />
           <Route exact path="/member" component={Member} />
           <Route exact path="/event" component={Event} />
           <Route exact path="/history" component={History} />
+          
+          <Route path="/callback" render={(props) => {
+            handleAuthentication(props);
+            return <Callback {...props} /> 
+          }}/>
         </Switch>
       </div>
     </Router>
