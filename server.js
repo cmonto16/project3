@@ -20,7 +20,7 @@ app.use(routes);
 mongoose.connect(
 
   process.env.MONGODB_URI || "mongodb://localhost/attendus",
-
+console.log(123),
  
 );
 
