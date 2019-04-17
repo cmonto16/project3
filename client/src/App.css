@@ -1,0 +1,29 @@
+body {
+  background-color: #555;
+  color: #fff;
+}
+h1 {
+  text-align: center;
+}
+.btn {
+  margin-right: 20px;
+}
+form input, form textarea {
+  color: #fff
+}
+
+/* label focus color */
+.input-field>label:not(.label-icon).active {
+  color: #f1dd22;
+}
+
+.row .input-field input:focus, .row .input-field textarea:focus {
+  border-bottom: 1px solid #841914 !important;
+  box-shadow: 0 1px 0 0 #841914 !important;
+}
+.input-field .prefix.active {
+  color: #841914;
+}
+textarea.materialize-textarea:focus:not([readonly])+label {
+  color: #f1dd22;
+}
