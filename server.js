@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const routes = require("./routes");
-var db = require("./models");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -21,11 +20,8 @@ app.use(routes);
 mongoose.connect(
 
   process.env.MONGODB_URI || "mongodb://localhost/attendus",
-
-  {
-    User: true,
-    Event: true
-  }
+console.log(123),
+ 
 );
 
 // Start the API server
