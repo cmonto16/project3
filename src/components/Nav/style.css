@@ -3,7 +3,14 @@ nav {
 }
 nav li a:hover {
     color: #f1dd22;
+    cursor: pointer;
+}
+#login_button a:hover {
+    cursor: pointer;
 }
 .brand-logo {
     margin-left: 10px;
+}
+nav #log_button {
+    padding-right: 20px;
 }
