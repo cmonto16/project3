@@ -58,3 +58,28 @@ db.User
     console.error(err);
     process.exit(1);
   });
+
+  const eventsSeed = [
+    {
+      "name": "Primary Children's Hospital Fundraiser",
+      "photo_link": "http://i.imgur.com/MyPSVxX.jpg",
+      "address": "123 Hospital Lane",
+      "city": "Sandy",
+      "state": "UT",
+      "objective": "To raise awareness about Super Cancer.",
+      "reporting_member": "Jaegermesiter",
+      "mission_report": "Lots of donations received!",
+    }];
+  
+  
+  db.Event
+    .remove({})
+    .then(() => db.Event.collection.insertMany(eventsSeed))
+    .then(data => {
+      console.log(data.result.n + " records inserted!");
+      process.exit(0);
+    })
+    .catch(err => {
+      console.error(err);
+      process.exit(1);
+    });
