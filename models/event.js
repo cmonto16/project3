@@ -2,11 +2,14 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const eventSchema = new Schema({
-  eventName: { type: String, required: true },
-  link: { type: String, required: true },
-  address: { type: String, required: true },
+  name: { type: String, required: true },
+  photo_link: { type: String, required: true },
+  address: { type: Number, required: true },
   city: { type: [String], required: true },
   state: { type: String, required: true },
+  objective: { type: String, required: true },
+  reporting_member: { type: String, required: true },
+  mission_report: { type: String, required: true },
     
 });
 
