@@ -1,15 +1,26 @@
 import React, { Component } from "react";
-import events from "../events.json";
+//import events from "../events.json";
+import API from "../utils/API";
 class History extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            list: events
+            events: []
         }
     }
+    componentDidMount() {
+        this.loadEvents();
+      }
+    
+      loadEvents = () => {
+        API.getEvents()
+          .then(res => this.setState({ events: res.data }))
+          .catch(err => console.log(err));
+      };
+
     render() {
-        const activities = this.state.list;
-        console.log(activities[0].members[0].nickname);
+        const activities = this.state.events;
+        //console.log(activities[0].members[0].nickname);
         return (
             <div className="container">
                 <h1>All Events Attended</h1>
@@ -27,10 +38,7 @@ class History extends Component {
                                 <br /><br />
                                 <b>Member submitting report: </b><span>{data.reporting_member}</span>
                                 <br /><br />
-                                <b>Attended by: </b>
-                                {data.members.map(value => 
-                                <span>{value.nickname}</span>).reduce(
-                                (prev, curr) => [prev, ', ', curr])}
+           
                             </div>
                             <div className="card-image">
                                 <img alt={data.name} src={data.photo_link} />
