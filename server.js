@@ -21,7 +21,7 @@ mongoose.connect(
 
   process.env.MONGODB_URI || "mongodb://localhost/attendus",
 console.log(123),
-console.log(123)
+
  
 );
 
