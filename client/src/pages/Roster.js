@@ -1,17 +1,27 @@
 import React from "react";
 import Profile from "../components/Profile";
-import members from "../members.json";
+// import members from "../members.json";
+import API from "../utils/API";
 
 class Roster extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            list: members
+           users:[]
         }
     }
+    componentDidMount() {
+        this.loadUsers();
+      }
+    
+      loadUsers = () => {
+        API.getUsers()
+          .then(res => this.setState({ users: res.data }))
+          .catch(err => console.log(err));
+      };
     
     render() {
-        const roster = this.state.list;
+        const roster = this.state.users;
         return (
             <div className="container" id="roster">
                 <h1>View roster here</h1>
