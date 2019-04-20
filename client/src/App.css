@@ -2,7 +2,7 @@ body {
   background-color: #555;
   color: #fff;
 }
-h1 {
+h1,h3 {
   text-align: center;
 }
 .btn {

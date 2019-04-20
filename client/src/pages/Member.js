@@ -1,7 +1,25 @@
 import React, { Component } from "react";
 
 class Member extends Component {
+    constructor () {
+        super();
+        this.state = {
+            firstName : '',
+            lastName : '',
+            member_number : '',
+            data_approved : '',
+            nickname: '',
+            image_link: ''
+        };
+    this.inputChange = this.inputChange.bind(this);
+    }
+    inputChange (event) {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    };
     render() {
+        
         return (
             <div className="container">
                 <div className="row">
@@ -9,32 +27,32 @@ class Member extends Component {
                     <form className="col s12">
                         <div className="row">
                             <div className="col s6 input-field">
-                                <label for="fname">First Name</label>
-                                <input className="" type="text" name="fname" id="fname" />
+                                <label htmlFor="fname">First Name</label>
+                                <input className="" type="text" name="firstName" id="fname" onChange={this.inputChange}/>
                             </div>
                             <div className="col s6 input-field">
-                                <label for="lname">Last Name</label>
-                                <input className="" type="text" name="lname" id="lname" />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col s6 input-field">
-                                <label for="member_num">Member#</label>
-                                <input className="" type="number" name="member_num" id="member_num" />
-                            </div>
-                            <div className="col s6 input-field">
-                                <label for="member_date">Date Approved</label>
-                                <input className="" type="text" name="member_date" id="member_date" />
+                                <label htmlFor="lname">Last Name</label>
+                                <input className="" type="text" name="lastName" id="lname" onChange={this.inputChange} />
                             </div>
                         </div>
                         <div className="row">
                             <div className="col s6 input-field">
-                                <label for="nickname">Nickname</label>
-                                <input className="" type="text" name="nickname" id="nickname" />
+                                <label htmlFor="member_num">Member#</label>
+                                <input className="" type="number" name="member_number" id="member_num" onChange={this.inputChange} />
                             </div>
                             <div className="col s6 input-field">
-                                <label for="image_link">Link to Profile Image</label>
-                                <input className="" type="text" name="image_link" id="image_link" />
+                                <label htmlFor="member_date">Date Approved</label>
+                                <input className="" type="text" name="data_approved" id="member_date" onChange={this.inputChange} />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col s6 input-field">
+                                <label htmlFor="nickname">Nickname</label>
+                                <input className="" type="text" name="nickname" id="nickname" onChange={this.inputChange} />
+                            </div>
+                            <div className="col s6 input-field">
+                                <label htmlFor="image_link">Link to Profile Image</label>
+                                <input className="" type="text" name="image_link" id="image_link" onChange={this.inputChange} />
                             </div>
                         </div>
                         <div className="row">

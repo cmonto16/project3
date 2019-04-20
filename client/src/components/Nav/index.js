@@ -15,7 +15,7 @@ function Nav(props) {
       <nav>
         <div className="nav-wrapper">
           <Link to="/" className="brand-logo">Attend-US</Link>
-          <Link to="/" data-target="mobile-demo" className="sidenav-trigger"><i class="material-icons">menu</i></Link>
+          <Link to="/" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></Link>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li><Link to="/roster">Roster</Link></li>
             <li><Link to="/member">New Member</Link></li>
@@ -25,7 +25,7 @@ function Nav(props) {
           </ul>
         </div>
       </nav>
-      <ul class="sidenav" id="mobile-demo">
+      <ul className="sidenav" id="mobile-demo">
         <li><Link to="/roster">Roster</Link></li>
         <li><Link to="/member">New Member</Link></li>
         <li><Link to="/event">New Event</Link></li>
