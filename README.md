@@ -1,3 +1,9 @@
+To run the app, enter the following commands:
+
+npm install
+npm start seed
+npm start
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
