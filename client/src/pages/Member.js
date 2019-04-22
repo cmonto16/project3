@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import API from "../utils/API";
 
 class Member extends Component {
     constructor () {
@@ -18,6 +19,22 @@ class Member extends Component {
             [event.target.name]: event.target.value
         })
     };
+    member_submit = (e) => {
+        e.preventDefault();
+        const newMem = {
+            first_name: this.state.firstName,
+            last_name: this.state.lastName,
+            member_number: this.state.member_number,
+            approval_date: this.state.data_approved,
+            nickname: this.state.nickname,
+            // hours: 0,
+            image: this.state.image_link
+        }
+        // console.log(newMem);
+        API.saveUsers({newMem})
+            .then(console.log(newMem))
+            .catch(err => console.log(err));
+    }
     render() {
         
         return (
@@ -56,7 +73,7 @@ class Member extends Component {
                             </div>
                         </div>
                         <div className="row">
-                            <button className="btn waves-effect waves-light green" type="submit">Submit
+                            <button className="btn waves-effect waves-light green" type="submit" onClick={ e => this.member_submit(e)}>Submit
                                 <i className="material-icons right">send</i>
                             </button>
                             <button className="btn waves-effect waves-light red" type="reset">Reset

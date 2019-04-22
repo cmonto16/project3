@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
 
-class Profile extends React.Component {
+class AttendCard extends React.Component {
     state = {
         clicked: false,
         hours: 0
@@ -12,12 +12,13 @@ class Profile extends React.Component {
             this.setState({clicked: true});
         } else if (this.state.clicked === true){
             console.log('you have unclicked it');
-            this.setState({clicked: false});
+            this.setState({clicked: false, hours: 0});
+            this.hourInput.value.reset();
         }
     }
     clickedGreen = () => {
         if (this.state.clicked === true) {
-            return 'green'
+            return '#3cf42c'
         } else if (this.state.clicked === false) {
             return '#726d6d'
         }
@@ -28,6 +29,11 @@ class Profile extends React.Component {
         } else if (this.state.clicked === false) {
             return 'none'
         }
+    }
+    inputChange = (event) => {
+        this.setState({
+            hours: event.target.value
+        })
     }
     render(){
         
@@ -46,7 +52,7 @@ class Profile extends React.Component {
                         </div>
                         <div className="card-action" style={{display: this.toggleHours()}}>
                             <label>Hours:</label>
-                            <input className="" type="text" name="hours" id="" />
+                            <input className="" type="text" name="hours" id="hours_worked" onChange={this.inputChange} ref={input => {this.hourInput = input;}} />
                         </div>
                     </div>
                 </div>
@@ -54,4 +60,4 @@ class Profile extends React.Component {
         )
     }
 }
-export default Profile;
+export default AttendCard;
