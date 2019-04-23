@@ -8,17 +8,16 @@ class AttendCard extends React.Component {
     };
     memberClicked = () => {
         if(this.state.clicked === false) {
-            console.log('you have clicked it');
             this.setState({clicked: true});
         } else if (this.state.clicked === true){
-            console.log('you have unclicked it');
             this.setState({clicked: false, hours: 0});
-            this.hourInput.value.reset();
+            this.hourInput.value = '';
+            
         }
     }
     clickedGreen = () => {
         if (this.state.clicked === true) {
-            return '#3cf42c'
+            return '#047008'
         } else if (this.state.clicked === false) {
             return '#726d6d'
         }
@@ -36,12 +35,10 @@ class AttendCard extends React.Component {
         })
     }
     render(){
-        
         return  (
             <div className="col s12 m6 l4 attend-card" 
                 data-id={this.props.member_number} 
-                onClick={(event) => {this.props.markPresent.bind(this,this.props.member_number);}}
-            >   
+                onClick={(event) => {this.props.markPresent(this.props.member_number,this.hourInput.value);}}>   
                 <div className="card horizontal">
                     <div className="card-image" onClick={(event) => this.memberClicked()}>
                         <img src={this.props.image} alt={this.props.nickname}/>
@@ -52,7 +49,7 @@ class AttendCard extends React.Component {
                         </div>
                         <div className="card-action" style={{display: this.toggleHours()}}>
                             <label>Hours:</label>
-                            <input className="" type="text" name="hours" id="hours_worked" onChange={this.inputChange} ref={input => {this.hourInput = input;}} />
+                            <input className="" type="number" name="hours" id="hours_worked" onChange={this.inputChange} ref={input => {this.hourInput = input;}} />
                         </div>
                     </div>
                 </div>
