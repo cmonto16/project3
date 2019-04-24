@@ -1,16 +1,9 @@
 import React from "react";
 import "./style.css";
+import PropTypes from 'prop-types';
 
 class AttendCard extends React.Component {
-    // memberClicked = () => {
-    //     if(this.state.clicked === false) {
-    //         this.setState({clicked: true});
-    //     } else if (this.state.clicked === true){
-    //         this.setState({clicked: false, hours: 0});
-    //         this.hourInput.value = '';
-            
-    //     }
-    // }
+
     toggleGreen = () => {
         if (this.props.clicked === true) {
             return '#047008'
@@ -36,7 +29,7 @@ class AttendCard extends React.Component {
             <div className="col s12 m6 l4 attend-card" 
                 data-id={this.props.member_number} >   
                 <div className="card horizontal">
-                    <div className="card-image" onClick={() => {this.props.toggleCard(this.props.member_number)}}>
+                    <div className="card-image" onClick={() => {this.props.toggleCard(this.props)}}>
                         <img src={this.props.image} alt={this.props.nickname}/>
                     </div>
                     <div className="card-stacked" style={{background: this.toggleGreen()}}>
@@ -45,7 +38,7 @@ class AttendCard extends React.Component {
                         </div>
                         <div className="card-action" style={{display: this.toggleHours()}}>
                             <label>Hours:</label>
-                            <input className="" type="number" name="hours" id="hours_worked" />
+                            <input className="" type="number" name="hours" id="hours_worked" onChange={() => {this.props.hourChange(this.props.member_number)}}/>
                         </div>
                     </div>
                 </div>
@@ -53,4 +46,7 @@ class AttendCard extends React.Component {
         )
     }
 }
+AttendCard.propTypes = {
+    clicked: PropTypes.bool
+};
 export default AttendCard;
