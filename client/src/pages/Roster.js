@@ -2,6 +2,7 @@ import React from "react";
 import Profile from "../components/Profile";
 // import members from "../members.json";
 import API from "../utils/API";
+//import DeleteBtn from "../components/DeleteBtn";
 
 class Roster extends React.Component {
     constructor(props) {
@@ -19,6 +20,12 @@ class Roster extends React.Component {
           .then(res => this.setState({ users: res.data }))
           .catch(err => console.log(err));
       };
+
+      deleteUsers = id => {
+        API.deleteUsers(id)
+          .then(res => this.loadUsers())
+          .catch(err => console.log(err));
+      };
     
     render() {
         const roster = this.state.users;
@@ -28,6 +35,8 @@ class Roster extends React.Component {
                 <div className="row">
                     {roster.map(data => (
                         <Profile
+                        deleteUsers={this.deleteUsers}
+                        {...data}
                         firstName = {data.first_name}
                         lastName = {data.last_name}
                         member_number = {data.member_number}
@@ -37,6 +46,7 @@ class Roster extends React.Component {
                         image = {data.image}
                         hours = {data.hours}
                         />
+ //                       <DeleteBtn onClick={() => this.deleteUsers(data._id)} />
                     ))}
                 </div>
             </div>
