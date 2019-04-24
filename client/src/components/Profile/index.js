@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.css";
+import DeleteBtn from "../DeleteBtn"
 
 class Profile extends React.Component {
     constructor(props) {
@@ -8,11 +9,14 @@ class Profile extends React.Component {
             clicked: "false"
         };
     }
+
+
     render(){
     return <div className="col l3 s6" data-id={this.props.member_number}>
                 <div className="card">
                     <div className="card-image">
                         <img alt={this.props.nickname} src={this.props.image} />
+                        <DeleteBtn onClick={() => this.props.deleteUsers(this.props._id)} />
                     </div>
                     <span className="card-title">{this.props.firstName} {this.props.lastName}</span>
                     <div className="card-content">
@@ -22,6 +26,7 @@ class Profile extends React.Component {
                         <b>Member Number: </b> <span>{this.props.member_number}</span>
                         <br />
                         <b>Total Hours: </b> <span>{this.props.hours}</span>
+                        
                     </div>
                 </div>
             </div>
