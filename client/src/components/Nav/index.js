@@ -10,7 +10,9 @@ function Nav(props) {
           <Link to="/" className="brand-logo">Attend-US</Link>
           <Link to="/" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></Link>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
+            {props.auth.isAuthenticated() &&
             <li><Link to="/roster">Roster</Link></li>
+            }
             {props.auth.isAuthenticated() &&
             <li><Link to="/member">New Member</Link></li>
             }
@@ -29,7 +31,9 @@ function Nav(props) {
         </div>
       </nav>
       <ul className="sidenav" id="mobile-demo">
+        {props.auth.isAuthenticated() &&
         <li><Link to="/roster">Roster</Link></li>
+        }
         {props.auth.isAuthenticated() &&
         <li><Link to="/member">New Member</Link></li>
         }
