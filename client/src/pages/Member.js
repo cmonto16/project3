@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 class Member extends Component {
   constructor() {
@@ -9,13 +11,14 @@ class Member extends Component {
         first_name: "",
         last_name: "",
         member_number: 0,
-        approval_date: null,
+        approval_date: new Date(),
         nickname: "",
         hours: 0,
         image: ""
       }
     };
     this.inputChange = this.inputChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   createMember() {
     const { getAccessToken } = this.props.auth;
@@ -34,6 +37,13 @@ class Member extends Component {
       form: { ...this.state.form, [event.target.name]: event.target.value }
     });
   }
+
+  handleChange(date) {
+    this.setState({
+      approval_date: date
+    });
+  }
+
   render() {
     return (
       <div className="container">
@@ -75,13 +85,14 @@ class Member extends Component {
                 />
               </div>
               <div className="col s6 input-field">
-                <label htmlFor="member_date">Date Approved</label>
-                <input
-                  className=""
-                  type="text"
-                  name="approval_date"
-                  id="member_date"
-                  onChange={this.inputChange}
+                <label htmlFor="member_date"></label>
+               <DatePicker
+               className=""
+               name="approval_date"
+               id="member_date"
+               placeholderText="Date Approved"
+               selected={this.state.approval_date}
+               onChange={this.handleChange} 
                 />
               </div>
             </div>
