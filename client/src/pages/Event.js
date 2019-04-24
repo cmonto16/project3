@@ -25,37 +25,23 @@ class Event extends Component {
             [event.target.name]: event.target.value
         })
     };
-    markPresent = (id,time) => {
-        console.log('mark present activated');
-        console.log(time);
-        this.state.list.map(member => {
-            if (id === member.member_number) {
-                const attendee = {
-                    nickname: member.nickname,
-                    member_number: member.member_number,
-                    hours: time,
-                    hasBeenClicked: true
-                }
-                console.log(attendee);
-                if (this.state.attendedList === undefined || this.state.attendedList == 0) {
-                    alert('empty')
-                    this.setState({attendedList: [...this.state.attendedList,{nickname: member.nickname, member_number: member.member_number, hours: time, hasBeenClicked: true}]});
-                } else {
-                    alert('not empty')
-                    this.state.attendedList.map(listedName => {
-                        if (id === listedName.member_number) {
-                            alert('match found');
-                        } else {
-                            alert('all clear');
-                            this.setState({attendedList: [...this.state.attendedList,{nickname: member.nickname, member_number: member.member_number, hours: time, hasBeenClicked: true}]});
-                        }
-                    });
-                    
-                }
-                
-            }
-            return member;
+    
+    toggleCard = (member_number) => {
+        console.log(member_number);
+        if (this.state.attendedList.indexOf(member_number) != -1) {
+            var array = [...this.state.attendedList];
+            var index = array.indexOf(member_number);
+            array.splice(index, 1);
+            this.setState({
+                attendedList: array
+            });
+            return;
+        }
+        // this.setState({attendedList: [...this.state.attendedList,{nickname: member.nickname, member_number: member.member_number, hours: time, hasBeenClicked: true}]});
+        this.setState({
+            attendedList: [...this.state.attendedList,member_number]
         });
+        
     }
     render() {
         const roster = this.state.list;
@@ -107,14 +93,16 @@ class Event extends Component {
                         </div>
                         <div className="row">
                             <h3>Members in attendance</h3>
-                            <h5 id="event_instructions">Click on the member's name or portrait to toggle them, then log their hours</h5>
+                            <h5 id="event_instructions">Click on the member's portrait to toggle them, then log their hours</h5>
                             {roster.map(data => (
                                 <AttendCard
                                     member_number = {data.member_number}
                                     key = {data.member_number}
                                     nickname = {data.nickname}
                                     image = {data.image}
-                                    markPresent = {this.markPresent}
+                                    toggleCard = {this.toggleCard}
+                                    clicked = {this.state.attendedList.indexOf(data.member_number) != -1}
+                                    hours = {0}
                                 />
                             ))}
                         </div>
