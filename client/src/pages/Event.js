@@ -33,24 +33,35 @@ class Event extends Component {
             });
         } else {
             this.state.attendedList.map(data => {
-            if (data.member_number === member.member_number) {
+                if (data.member_number === member.member_number) {
+                    var array = this.state.attendedList;
+                    var index = array.indexOf(data);
+                    array.splice(index,1)
+                    this.setState({
+                        attendedList: array
+                    });
+                    alert('test');
+                    return;
+                } else {
+                    this.setState({
+                        attendedList: [...this.state.attendedList,{nickname: member.nickname, member_number: member.member_number, hours: 0}]
+                    });
+                }
+            });
+        }
+    }
+    hourChange = (id_num,value) => {
+        this.state.attendedList.map(data => {
+            if (data.member_number === id_num) {
                 var array = this.state.attendedList;
                 var index = array.indexOf(data);
-                array.splice(index,1)
+                let copy = JSON.parse(JSON.stringify(this.state.attendedList));
+                copy[index].hours = value
                 this.setState({
-                    attendedList: array
-                });
-                return;
-            } else {
-                this.setState({
-                    attendedList: [...this.state.attendedList,{nickname: member.nickname, member_number: member.member_number, hours: 0}]
+                    attendedList: copy
                 });
             }
         });
-        }
-    }
-    hourChange = (member_number,value) => {
-        console.log(value);
     }
     render() {
         const roster = this.state.list;
