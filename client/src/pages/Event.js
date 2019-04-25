@@ -27,27 +27,30 @@ class Event extends Component {
     };
     
     toggleCard = (member) => {
-        console.log(member);
-        if (this.state.attendedList.indexOf(member.member_number) !== -1) {
-            alert('second added');
-            var array = [...this.state.attendedList];
-            var index = array.indexOf(member);
-            array.splice(index, 1);
+        if (this.state.attendedList.length === 0) {
             this.setState({
-                attendedList: array
+                attendedList: [...this.state.attendedList,{nickname: member.nickname, member_number: member.member_number, hours: 0}]
             });
-            return;
-        }
-        this.setState({
-            // attendedList: [...this.state.attendedList,member.member_number]
-            attendedList: [...this.state.attendedList,{member_number:member.member_number}]
-            // attendedList: [...this.state.attendedList,{nickname: member.nickname, member_number: member.member_number}]
-            // attendedList: [...this.state.attendedList,{nickname: member.nickname, member_number: member.member_number, hours: time, hasBeenClicked: true}]
+        } else {
+            this.state.attendedList.map(data => {
+            if (data.member_number === member.member_number) {
+                var array = this.state.attendedList;
+                var index = array.indexOf(data);
+                array.splice(index,1)
+                this.setState({
+                    attendedList: array
+                });
+                return;
+            } else {
+                this.setState({
+                    attendedList: [...this.state.attendedList,{nickname: member.nickname, member_number: member.member_number, hours: 0}]
+                });
+            }
         });
-        
+        }
     }
-    hourChange = (member_number) => {
-        console.log(member_number);
+    hourChange = (member_number,value) => {
+        console.log(value);
     }
     render() {
         const roster = this.state.list;
@@ -107,7 +110,6 @@ class Event extends Component {
                                     nickname = {data.nickname}
                                     image = {data.image}
                                     toggleCard = {this.toggleCard}
-                                    // clicked = {this.state.attendedList.indexOf(data.member_number) !== -1}
                                     clicked = {this.state.attendedList.find(e => {return data.member_number === e.member_number}) != null}
                                     hourChange = {this.hourChange}
                                     hours = {0}
