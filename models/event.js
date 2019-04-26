@@ -13,7 +13,7 @@ const eventSchema = new Schema({
  name: { type: String, required: true },
  photo_link: { type: String, required: true },
  address: { type: Number, required: true },
- city: { type: [String], required: true },
+ city: { type: String, required: true },
  state: { type: String, required: true },
  objective: { type: String, required: true },
  reporting_member: { type: String, required: true },
