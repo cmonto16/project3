@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-//import events from "../events.json";
 import API from "../utils/API";
+
+
 class History extends Component {
     constructor(props) {
         super(props);

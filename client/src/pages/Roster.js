@@ -1,8 +1,6 @@
 import React from "react";
 import Profile from "../components/Profile";
-// import members from "../members.json";
 import API from "../utils/API";
-//import DeleteBtn from "../components/DeleteBtn";
 
 class Roster extends React.Component {
     constructor(props) {
@@ -46,7 +44,6 @@ class Roster extends React.Component {
                         image = {data.image}
                         hours = {data.hours}
                         />
- //                       <DeleteBtn onClick={() => this.deleteUsers(data._id)} />
                     ))}
                 </div>
             </div>
