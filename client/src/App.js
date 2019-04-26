@@ -47,9 +47,20 @@ function App() {
               !auth.isAuthenticated() ? (
                 <Redirect to="/" />
               ) : (
-                <Member auth={auth} />
+                <Member auth={auth} key={1} />
               )
             }
+          />
+          <Route
+            exact
+            path="/member/:id"
+            render={(arg) => {
+              return !auth.isAuthenticated() ? (
+                <Redirect to="/" />
+              ) : (
+                <Member auth={auth} id={arg.match.params.id} key={2} />
+              )
+              }}
           />
           <Route
             exact
