@@ -1,90 +1,142 @@
 import React, { Component } from "react";
-import API from "../utils/API";
+import axios from "axios";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 class Member extends Component {
-    constructor () {
-        super();
-        this.state = {
-            firstName : '',
-            lastName : '',
-            member_number : '',
-            data_approved : '',
-            nickname: '',
-            image_link: ''
-        };
-    this.inputChange = this.inputChange.bind(this);
-    }
-    inputChange (event) {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
+  constructor() {
+    super();
+    this.state = {
+      form: {
+        first_name: "",
+        last_name: "",
+        member_number: 0,
+        approval_date: new Date(),
+        nickname: "",
+        hours: 0,
+        image: ""
+      }
     };
-    member_submit = (e) => {
-        e.preventDefault();
-        const newMem = {
-            first_name: this.state.firstName,
-            last_name: this.state.lastName,
-            member_number: this.state.member_number,
-            approval_date: this.state.data_approved,
-            nickname: this.state.nickname,
-            // hours: 0,
-            image: this.state.image_link
-        }
-        // console.log(newMem);
-        API.saveUsers({newMem})
-            .then(console.log(newMem))
-            .catch(err => console.log(err));
-    }
-    render() {
-        
-        return (
-            <div className="container">
-                <div className="row">
-                    <h1>Input new member data here</h1>
-                    <form className="col s12">
-                        <div className="row">
-                            <div className="col s6 input-field">
-                                <label htmlFor="fname">First Name</label>
-                                <input className="" type="text" name="firstName" id="fname" onChange={this.inputChange}/>
-                            </div>
-                            <div className="col s6 input-field">
-                                <label htmlFor="lname">Last Name</label>
-                                <input className="" type="text" name="lastName" id="lname" onChange={this.inputChange} />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col s6 input-field">
-                                <label htmlFor="member_num">Member#</label>
-                                <input className="" type="number" name="member_number" id="member_num" onChange={this.inputChange} />
-                            </div>
-                            <div className="col s6 input-field">
-                                <label htmlFor="member_date">Date Approved</label>
-                                <input className="" type="text" name="data_approved" id="member_date" onChange={this.inputChange} />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col s6 input-field">
-                                <label htmlFor="nickname">Nickname</label>
-                                <input className="" type="text" name="nickname" id="nickname" onChange={this.inputChange} />
-                            </div>
-                            <div className="col s6 input-field">
-                                <label htmlFor="image_link">Link to Profile Image</label>
-                                <input className="" type="text" name="image_link" id="image_link" onChange={this.inputChange} />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <button className="btn waves-effect waves-light green" type="submit" onClick={ e => this.member_submit(e)}>Submit
-                                <i className="material-icons right">send</i>
-                            </button>
-                            <button className="btn waves-effect waves-light red" type="reset">Reset
-                                <i className="material-icons right">undo</i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
+    this.inputChange = this.inputChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  createMember() {
+    const { getAccessToken } = this.props.auth;
+    const headers = { Authorization: `Bearer ${getAccessToken()}` };
+    this.state.form.member_number = parseInt(this.state.form.member_number);
+    axios
+      .post(`/api/users`, this.state.form, { headers })
+      .then(response => this.setState({ message: "Success!" }))
+      .catch(error =>
+        this.setState({ message: error.message || "Failed to save." })
+      );
+  }
+
+  inputChange(event) {
+    this.setState({
+      form: { ...this.state.form, [event.target.name]: event.target.value }
+    });
+  }
+
+  handleChange(date) {
+    this.setState({
+      approval_date: date
+    });
+  }
+
+  render() {
+    return (
+      <div className="container">
+        <div className="row">
+          {this.state.message && <h2>{this.state.message}</h2>}
+          <h1>Input new member data here</h1>
+          <form className="col s12">
+            <div className="row">
+              <div className="col s6 input-field">
+                <label htmlFor="fname">First Name</label>
+                <input
+                  className=""
+                  type="text"
+                  name="first_name"
+                  id="fname"
+                  onChange={this.inputChange}
+                />
+              </div>
+              <div className="col s6 input-field">
+                <label htmlFor="lname">Last Name</label>
+                <input
+                  className=""
+                  type="text"
+                  name="last_name"
+                  id="lname"
+                  onChange={this.inputChange}
+                />
+              </div>
             </div>
-        )
-    }
+            <div className="row">
+              <div className="col s6 input-field">
+                <label htmlFor="member_num">Member#</label>
+                <input
+                  className=""
+                  type="number"
+                  name="member_number"
+                  id="member_num"
+                  onChange={this.inputChange}
+                />
+              </div>
+              <div className="col s6 input-field">
+                <label htmlFor="member_date"></label>
+               <DatePicker
+               className=""
+               name="approval_date"
+               id="member_date"
+               placeholderText="Date Approved"
+               selected={this.state.approval_date}
+               onChange={this.handleChange} 
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col s6 input-field">
+                <label htmlFor="nickname">Nickname</label>
+                <input
+                  className=""
+                  type="text"
+                  name="nickname"
+                  id="nickname"
+                  onChange={this.inputChange}
+                />
+              </div>
+              <div className="col s6 input-field">
+                <label htmlFor="image_link">Link to Profile Image</label>
+                <input
+                  className=""
+                  type="text"
+                  name="image"
+                  id="image_link"
+                  onChange={this.inputChange}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <button
+                className="btn waves-effect waves-light green"
+                onClick={this.createMember.bind(this)}
+                type="button"
+              >
+                Submit
+                <i className="material-icons right">send</i>
+              </button>
+              <button className="btn waves-effect waves-light red" type="reset">
+                Reset
+                <i className="material-icons right">undo</i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Member;

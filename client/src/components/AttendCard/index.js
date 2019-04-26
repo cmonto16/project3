@@ -3,6 +3,7 @@ import "./style.css";
 import PropTypes from 'prop-types';
 
 class AttendCard extends React.Component {
+
     toggleGreen = () => {
         if (this.props.clicked === true) {
             return '#047008'
@@ -16,11 +17,6 @@ class AttendCard extends React.Component {
         } else if (this.props.clicked === false) {
             return 'none'
         }
-    }
-    inputChange = (event) => {
-        this.setState({
-            hours: event.target.value
-        })
     }
 
     render(){
@@ -37,7 +33,8 @@ class AttendCard extends React.Component {
                         </div>
                         <div className="card-action" style={{display: this.toggleHours()}}>
                             <label>Hours:</label>
-                            <input className="" type="number" name="hours" className="hours_worked" onChange={(e) => {this.props.hourChange(this.props.member_number,e.target.value)}}/>
+                            <input className="" type="number" name="hours" className="hours_worked" value={this.props.hours}
+                            onChange={(e) => {this.props.hourChange(this.props.member_number,e.target.value)}}/>
                         </div>
                     </div>
                 </div>

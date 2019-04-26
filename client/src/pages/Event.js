@@ -40,13 +40,11 @@ class Event extends Component {
                     this.setState({
                         attendedList: array
                     });
-                    alert('test');
                     return;
                 } else {
                     this.setState({
                         attendedList: [...this.state.attendedList,{nickname: member.nickname, member_number: member.member_number, hours: 0}]
-                    });
-                }
+                    });                }
             });
         }
     }
@@ -114,18 +112,21 @@ class Event extends Component {
                         <div className="row">
                             <h3>Members in attendance</h3>
                             <h5 id="event_instructions">Click on the member's portrait to toggle them, then log their hours</h5>
-                            {roster.map(data => (
+                            {roster.map(data => {
+                                let record = this.state.attendedList.find(e => {return data.member_number === e.member_number});
+                                let clicked = record != null;
+                                return (
                                 <AttendCard
                                     member_number = {data.member_number}
                                     key = {data.member_number}
                                     nickname = {data.nickname}
                                     image = {data.image}
                                     toggleCard = {this.toggleCard}
-                                    clicked = {this.state.attendedList.find(e => {return data.member_number === e.member_number}) != null}
+                                    clicked = {clicked}
                                     hourChange = {this.hourChange}
-                                    hours = {0}
+                                    hours = {clicked ? record.hours : 0}
                                 />
-                            ))}
+                            )})}
                         </div>
                         <div className="row">
                             <button className="btn waves-effect waves-light green" type="submit">Submit
