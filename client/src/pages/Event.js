@@ -3,14 +3,12 @@ import React, { Component } from "react";
 import AttendCard from "../components/AttendCard";
 import './pages.css';
 import API from "../utils/API";
-
-
+import axios from "axios";
 
 class Event extends Component {
     constructor() {
         super();
         this.state = {
-        
             event_name: '',
             photo_link: '',
             address: '',
@@ -69,6 +67,7 @@ class Event extends Component {
                 var array = this.state.attendedList;
                 var index = array.indexOf(data);
                 let copy = JSON.parse(JSON.stringify(this.state.attendedList));
+                value = Number.parseInt(value, 10);
                 copy[index].hours = value
                 this.setState({
                     attendedList: copy
@@ -80,16 +79,24 @@ class Event extends Component {
         e.preventDefault();
         const eventData = {
             address: this.state.address,
-            attendedList: this.state.attendedList,
+            members: this.state.attendedList,
             city: this.state.city,
-            event_name: this.state.event_name,
+            name: this.state.event_name,
             objective: this.state.objective,
             photo_link: this.state.photo_link,
-            report: this.state.report,
+            mission_report: this.state.report,
             reporting_member: this.state.reporting_member,
             state: this.state.state
         }
-        console.log(eventData)
+        console.log(eventData);
+        const { getAccessToken } = this.props.auth;
+        const headers = { Authorization: `Bearer ${getAccessToken()}` };
+        axios
+          .post(`/api/events`, eventData, { headers })
+          .then(response => this.setState({ message: "Success!" }))
+          .catch(error =>
+            this.setState({ message: error.message || "Failed to save." })
+          );
     }
 
     render() {
