@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-//import members from "../members.json";
 import AttendCard from "../components/AttendCard";
 import './pages.css';
 import API from "../utils/API";
