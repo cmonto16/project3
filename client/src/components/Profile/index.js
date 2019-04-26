@@ -24,7 +24,7 @@ class Profile extends React.Component {
           </span>
           <div className="card-content">
             <h5>{this.props.nickname}</h5>
-            <b>Data Approved: </b> <span>{this.props.date}</span>
+            <b>Date Approved: </b> <span>{this.props.date}</span>
             <br />
             <b>Member Number: </b> <span>{this.props.member_number}</span>
             <br />
