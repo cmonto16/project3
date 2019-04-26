@@ -26,7 +26,6 @@ function App() {
         <Route path="*" render={props => <Nav auth={auth} />} />
         <Switch>
           <Route exact path="/" render={() => <Home auth={auth} />} />
-        {/* <Route exact path="/roster" component={Roster} /> */}
           
           <Route
             exact
@@ -73,7 +72,6 @@ function App() {
               )
             }
           />
-          {/* <Route exact path="/history" component={History} /> */}
 
           <Route
             exact

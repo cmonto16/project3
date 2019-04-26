@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+//Member Schema created in the database to be called
 const memberSchema = new Schema({
-
  nickname: { type: String, required: true },
  member_number: { type:Number, required: true},
  hours: {type:Number, required: true}
 
 });
 
+// Adding Events Schema and calling in our memberSchema for more information needed
 const eventSchema = new Schema({
  name: { type: String, required: true },
  photo_link: { type: String, required: true },
