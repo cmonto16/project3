@@ -25,22 +25,41 @@ class Event extends Component {
             [event.target.name]: event.target.value
         })
     };
-    markPresent = (id) => {
-        this.state.list.map(member => {
-            if (id === member.member_number) {
-                const attendee = {
-                    nickname: member.nickname,
-                    member_number: member.member_number,
-                    hours: 0,
-                    hasBeenClicked: true
-                }
-                console.log(attendee);
-                this.setState({attendedList: [...this.state.attendedList,{attendee}]});
-                
+    
+    toggleCard = (member) => {
+        if (this.state.attendedList.length === 0) {
+            this.setState({
+                attendedList: [...this.state.attendedList,{nickname: member.nickname, member_number: member.member_number, hours: 0}]
+            });
+        } else {
+            this.state.attendedList.map(data => {
+                if (data.member_number === member.member_number) {
+                    var array = this.state.attendedList;
+                    var index = array.indexOf(data);
+                    array.splice(index,1)
+                    this.setState({
+                        attendedList: array
+                    });
+                    return;
+                } else {
+                    this.setState({
+                        attendedList: [...this.state.attendedList,{nickname: member.nickname, member_number: member.member_number, hours: 0}]
+                    });                }
+            });
+        }
+    }
+    hourChange = (id_num,value) => {
+        this.state.attendedList.map(data => {
+            if (data.member_number === id_num) {
+                var array = this.state.attendedList;
+                var index = array.indexOf(data);
+                let copy = JSON.parse(JSON.stringify(this.state.attendedList));
+                copy[index].hours = value
+                this.setState({
+                    attendedList: copy
+                });
             }
-            return member;
         });
-        console.log('test');
     }
     render() {
         const roster = this.state.list;
@@ -92,16 +111,22 @@ class Event extends Component {
                         </div>
                         <div className="row">
                             <h3>Members in attendance</h3>
-                            <h5 id="event_instructions">Click on the member's name or portrait to select, then log their hours</h5>
-                            {roster.map(data => (
+                            <h5 id="event_instructions">Click on the member's portrait to toggle them, then log their hours</h5>
+                            {roster.map(data => {
+                                let record = this.state.attendedList.find(e => {return data.member_number === e.member_number});
+                                let clicked = record != null;
+                                return (
                                 <AttendCard
                                     member_number = {data.member_number}
                                     key = {data.member_number}
                                     nickname = {data.nickname}
                                     image = {data.image}
-                                    markPresent = {this.markPresent}
+                                    toggleCard = {this.toggleCard}
+                                    clicked = {clicked}
+                                    hourChange = {this.hourChange}
+                                    hours = {clicked ? record.hours : 0}
                                 />
-                            ))}
+                            )})}
                         </div>
                         <div className="row">
                             <button className="btn waves-effect waves-light green" type="submit">Submit

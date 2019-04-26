@@ -1,52 +1,40 @@
 import React from "react";
 import "./style.css";
+import PropTypes from 'prop-types';
 
-class Profile extends React.Component {
-    state = {
-        clicked: false,
-        hours: 0
-    };
-    memberClicked = () => {
-        if(this.state.clicked === false) {
-            console.log('you have clicked it');
-            this.setState({clicked: true});
-        } else if (this.state.clicked === true){
-            console.log('you have unclicked it');
-            this.setState({clicked: false});
-        }
-    }
-    clickedGreen = () => {
-        if (this.state.clicked === true) {
-            return 'green'
-        } else if (this.state.clicked === false) {
+class AttendCard extends React.Component {
+
+    toggleGreen = () => {
+        if (this.props.clicked === true) {
+            return '#047008'
+        } else if (this.props.clicked === false) {
             return '#726d6d'
         }
     }
     toggleHours = () => {
-        if (this.state.clicked === true) {
+        if (this.props.clicked === true) {
             return 'block'
-        } else if (this.state.clicked === false) {
+        } else if (this.props.clicked === false) {
             return 'none'
         }
     }
+
     render(){
-        
         return  (
             <div className="col s12 m6 l4 attend-card" 
-                data-id={this.props.member_number} 
-                onClick={(event) => {this.props.markPresent.bind(this,this.props.member_number);}}
-            >   
+                data-id={this.props.member_number} >   
                 <div className="card horizontal">
-                    <div className="card-image" onClick={(event) => this.memberClicked()}>
+                    <div className="card-image" onClick={() => {this.props.toggleCard(this.props)}}>
                         <img src={this.props.image} alt={this.props.nickname}/>
                     </div>
-                    <div className="card-stacked" style={{background: this.clickedGreen()}}>
-                        <div className="card-content" onClick={(event) => this.memberClicked()}>
+                    <div className="card-stacked" style={{background: this.toggleGreen()}}>
+                        <div className="card-content">
                             <p>{this.props.nickname}</p>
                         </div>
                         <div className="card-action" style={{display: this.toggleHours()}}>
                             <label>Hours:</label>
-                            <input className="" type="text" name="hours" id="" />
+                            <input className="" type="number" name="hours" className="hours_worked" value={this.props.hours}
+                            onChange={(e) => {this.props.hourChange(this.props.member_number,e.target.value)}}/>
                         </div>
                     </div>
                 </div>
@@ -54,4 +42,7 @@ class Profile extends React.Component {
         )
     }
 }
-export default Profile;
+AttendCard.propTypes = {
+    clicked: PropTypes.bool
+};
+export default AttendCard;
