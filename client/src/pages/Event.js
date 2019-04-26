@@ -1,13 +1,16 @@
 import React, { Component } from "react";
-import members from "../members.json";
+//import members from "../members.json";
 import AttendCard from "../components/AttendCard";
 import './pages.css';
+import API from "../utils/API";
+
+
 
 class Event extends Component {
     constructor() {
         super();
         this.state = {
-            list: members,
+        
             event_name: '',
             photo_link: '',
             address: '',
@@ -16,10 +19,22 @@ class Event extends Component {
             objective: '',
             reporting_member: '',
             report: '',
-            attendedList: []
+            attendedList: [],
+            users:[]
         }
         this.inputChange = this.inputChange.bind(this);
     }
+    componentDidMount() {
+        this.loadUsers();
+      }
+    
+      loadUsers = () => {
+        API.getUsers()
+          .then(res => this.setState({ users: res.data }))
+          .catch(err => console.log(err));
+      };
+
+    
     inputChange (event) {
         this.setState({
             [event.target.name]: event.target.value
@@ -62,7 +77,7 @@ class Event extends Component {
         });
     }
     render() {
-        const roster = this.state.list;
+        const roster = this.state.users;
         return (
             <div className="container">
                 <div className="row">
