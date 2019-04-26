@@ -76,6 +76,22 @@ class Event extends Component {
             }
         });
     }
+    submitEvent (e) {
+        e.preventDefault();
+        const eventData = {
+            address: this.state.address,
+            attendedList: this.state.attendedList,
+            city: this.state.city,
+            event_name: this.state.event_name,
+            objective: this.state.objective,
+            photo_link: this.state.photo_link,
+            report: this.state.report,
+            reporting_member: this.state.reporting_member,
+            state: this.state.state
+        }
+        console.log(eventData)
+    }
+
     render() {
         const roster = this.state.users;
         return (
@@ -144,9 +160,9 @@ class Event extends Component {
                             )})}
                         </div>
                         <div className="row">
-                            <button className="btn waves-effect waves-light green" type="submit">Submit
-                                <i className="material-icons right">send</i>
-                            </button>
+                        <button className="btn waves-effect waves-light green" type="submit" onClick = {this.submitEvent.bind(this)}>Submit
+	                        <i className="material-icons right">send</i>
+                             </button>
                             <button className="btn waves-effect waves-light red" type="reset">Reset
                                 <i className="material-icons right">undo</i>
                             </button>
