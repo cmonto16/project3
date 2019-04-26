@@ -26,7 +26,20 @@ function App() {
         <Route path="*" render={props => <Nav auth={auth} />} />
         <Switch>
           <Route exact path="/" render={() => <Home auth={auth} />} />
-          <Route exact path="/roster" component={Roster} />
+        {/* <Route exact path="/roster" component={Roster} /> */}
+          
+          <Route
+            exact
+            path="/roster"
+            render={() =>
+              !auth.isAuthenticated() ? (
+                <Redirect to="/" />
+              ) : (
+                <Roster auth={auth} />
+              )
+            }
+          />
+          
           <Route
             exact
             path="/member"
@@ -49,7 +62,19 @@ function App() {
               )
             }
           />
-          <Route exact path="/history" component={History} />
+          {/* <Route exact path="/history" component={History} /> */}
+
+          <Route
+            exact
+            path="/history"
+            render={() =>
+              !auth.isAuthenticated() ? (
+                <Redirect to="/" />
+              ) : (
+                <History auth={auth} />
+              )
+            }
+          />
 
           <Route
             path="/callback"
